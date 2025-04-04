@@ -74,8 +74,6 @@ Colocando o nome da cidade via input, após, e vai retornar todas as requisiçõ
 
 # Acessar o container da API (Docker)
 docker exec -it gntech-api bash
-
-# Rodar o script
 python main.py
 
 
