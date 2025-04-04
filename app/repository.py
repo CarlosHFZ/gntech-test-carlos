@@ -15,11 +15,9 @@ def save_weather_data(data: dict):
 
         session.add(weather)
         session.commit()
-        print(f'Saved data for the city: {data['city']}')
-
+        print(f'Saved data for the city: {data["city"]}')
     except Exception as e:
         session.rollback()
         raise e
-
     finally:
         session.close()

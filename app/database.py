@@ -1,12 +1,13 @@
-
 from sqlalchemy import create_engine, Column, Integer, String, Float, DateTime
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from app.settings import DATABASE_URL
 
 
-DATABASE_URL = "sqlite:///weather.db"
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
 
 engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(DeclarativeBase):
@@ -25,4 +26,8 @@ class WeatherData(Base):
 
 
 def init_db():
-    Base.metadata.create_all(bind=engine)
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("Database created")
+    except Exception as e:
+        print(f"Error creating table: {e}")
