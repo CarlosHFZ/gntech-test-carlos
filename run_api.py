@@ -36,8 +36,8 @@ def read_weather():
         weather_data = [{
             "city": row[1],
             "current_temperature": row[2],
-            "min_temperature": row[3],
-            "max_temperature": row[4],
+            "max_temperature": row[3],
+            "min_temperature": row[4],
             "timestamp": row[5]
         } for row in rows]
         return weather_data

@@ -14,8 +14,8 @@ def fetch_and_save_weather_data(city: str):
     for entry in data:
         print(f"📍   City: {entry['city']}")
         print(f"🌡️   Current Temp : {entry['current_temperature']:.2f}°C")
-        print(f"🌡️   Max Temp     : {entry['max_temperature']:.2f}°C")
-        print(f"🌡️   Min Temp     : {entry['min_temperature']:.2f}°C")
+        print(f"🌡️   Min Temp     : {entry['max_temperature']:.2f}°C")
+        print(f"🌡️   Max Temp     : {entry['min_temperature']:.2f}°C")
 
         timestamp = entry['timestamp']
         if isinstance(timestamp, datetime):
