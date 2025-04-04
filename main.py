@@ -1,10 +1,10 @@
-from app.weather_api import WeatherClient
-import os
+from app.services import fetch_and_save_weather_data
 
-api_key = os.getenv("OPENWEATHER_API_KEY")
-if not api_key:
-    raise ValueError("API_KEY not found in environment variables")
 
-client = WeatherClient(api_key=api_key)
-weather = client.get_weather('São Paulo')
-print(weather)
+def main():
+    city = input(str("Enter the city name: "))
+    fetch_and_save_weather_data(city)
+
+
+if __name__ == "__main__":
+    main()
