@@ -1,65 +1,79 @@
-# GNTech Test - Carlos
+GNTech Test - Carlos
 
-Projeto FastAPI + PostgreSQL + Docker que consome uma API pública de clima e armazena os dados no banco.
+API RESTful de Clima com FastAPI, PostgreSQL e Docker
+🌤️ GNTech Weather Data API
 
----
+Este projeto é uma API RESTful desenvolvida com FastAPI para consultar dados climáticos da OpenWeather API, armazenar essas informações em um banco de dados PostgreSQL e disponibilizá-las por meio de endpoints. Todo o ambiente é orquestrado via Docker e Docker Compose.
+🔧 Tecnologias Utilizadas
 
-# GNTech - Weather Data API ☁️
+    🐍 Python 3.10
 
-Este projeto é uma API RESTful desenvolvida com FastAPI, que extrai dados climáticos da OpenWeather API, armazena em um banco PostgreSQL e os disponibiliza via endpoints. O ambiente completo é conteinerizado com Docker.
+    ⚡ FastAPI
 
-## 🔧 Tecnologias utilizadas
+    🐘 PostgreSQL
 
-- 🐍 Python 3.10
-- ⚡ FastAPI
-- 🐘 PostgreSQL
-- 🐳 Docker & Docker Compose
-- 🌐 OpenWeather API
+    🐳 Docker & Docker Compose
 
----
+    🌐 OpenWeather API
 
-## 🚀 Como executar o projeto localmente
+🚀 Como Executar o Projeto Localmente
+1. Clone o repositório
 
-### 1. Clone o repositório
-
-```bash
 git clone https://github.com/seu-usuario/gntech-test-carlos.git
 cd gntech-test-carlos
-```
-Crie um arquivo .env com as seguintes variáveis(está em .env.exemple tambem):
+
+2. Configure as variáveis de ambiente
+
+Crie um arquivo .env na raiz do projeto com o seguinte conteúdo (exemplo disponível em .env.example):
 
 POSTGRES_USER=carlos
-
 POSTGRES_PASSWORD=carlos123
-
 POSTGRES_DB=weather_db
 
+# Substitua pela sua chave real da OpenWeather API
 OPENWEATHER_API_KEY=your_api_key_here
 
-                        #//user:password@gntech_postgres:port/my_db
+# URL de conexão com o banco
 DATABASE_URL=postgresql://carlos:carlos123@gntech_postgres:5432/weather_db
 
-🔑 Você pode obter a OPENWEATHER_API_KEY gratuitamente em https://openweathermap.org/api
+🔑 Você pode obter sua chave da OpenWeather gratuitamente em: https://openweathermap.org/api
+3. Construa e inicie os containers Docker
 
-
-3. Suba os containers com Docker
 docker-compose up --build
-A API estará disponível em: http://localhost:8000
 
----- FastAPI ------
+🧪 Como Utilizar a API
+📘 Documentação Interativa (FastAPI)
 
-http://localhost:8000/docs - para usar o FastAPI
-/weather "GET" - para puxar os dados salvos no banco de dados
-/weather "POST" - voce coloca apenas o nome da cidade que deseja armazenar os dados
+Após iniciar o projeto, acesse:
 
----- Postman ------
-http://localhost:8000/weather "Get" - para puxar os dados salvos no banco de dados
-http://localhost:8000/weather?city=London "POST" - voce coloca apos '=' apenas o nome da cidade que deseja armazenar os dados
+    http://localhost:8000/docs — Interface Swagger da API
 
----- Rodar o Main.py ----
-Dentro do terminal do Docker:
+    http://localhost:8000/redoc — Interface Redoc
 
-python main.py Biguaçu
+🔁 Endpoints Disponíveis
+GET /weather
+
+Retorna todos os dados climáticos salvos no banco de dados.
+POST /weather?city=NomeDaCidade
+
+Consulta os dados climáticos da cidade informada na OpenWeather API, armazena no banco de dados e retorna mensagem de sucesso.
+
+📌 Exemplo de requisição via Postman:
+
+    POST http://localhost:8000/weather?city=London
+
+🖥️ Executar Script Diretamente (Opcional)
+
+Você também pode rodar o script main.py diretamente dentro do container, informando a cidade desejada:
+
+# Acessar o container da API
 docker exec -it gntech-api bash
 
+# Rodar o script com o nome da cidade
+python main.py "Biguaçu"
 
+
+📬 Contato
+
+Desenvolvido por Carlos — Teste técnico GNTech 2025
+Para dúvidas ou sugestões: [kalizehnder@hotmail.com]
