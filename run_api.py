@@ -1,8 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
+import requests
 from app.database import init_db, SessionLocal
 from app.repository import save_weather_data
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import HTTPException
 from sqlalchemy import text
 from app.schemas import WeatherDataOut
 from app.weather_api import WeatherClient
@@ -49,14 +49,18 @@ def read_weather():
 
 
 @app.post("/weather")
-def save_weather(city: str):
+def save_weather(city: str = Query(..., min_length=2, description="Name of the city to fetch weather data for")):
     client = WeatherClient()
     try:
         weather_data = client.get_weather(city)
         save_weather_data(weather_data)
-        return {"message": f"Weather data for {city} saved successfully!"}
+        return {"message": f"Weather data for '{city}' saved successfully!"}
+    except requests.exceptions.HTTPError as http_err:
+        if http_err.response.status_code == 404:
+            raise HTTPException(status_code=404, detail=f"City '{city}' not found.")
+        raise HTTPException(status_code=http_err.response.status_code, detail="Failed to access the weather API.")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 if __name__ == "__main__":

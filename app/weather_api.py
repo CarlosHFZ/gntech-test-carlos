@@ -18,14 +18,14 @@ class WeatherClient:
 
         response = requests.get(self.base_url, params=params)
 
-        if response.status_code == 200:
-            data = response.json()
-            return self._parse_weather_data(data)
-        else:
-            raise Exception(
-                f"Request failed: {response.status_code}\n"
-                "Reason: {response.text}"
-            )
+        try:
+            response.raise_for_status()  # Raises HTTPError if status != 200
+        except requests.exceptions.HTTPError as e:
+            print(f"HTTPError: {e.response.status_code} - {e.response.text}")
+            raise
+
+        data = response.json()
+        return self._parse_weather_data(data)
 
     def _parse_weather_data(self, data: dict) -> dict:
         timestamp = data.get("dt")
