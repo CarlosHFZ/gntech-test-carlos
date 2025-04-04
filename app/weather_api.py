@@ -1,8 +1,5 @@
-from dotenv import load_dotenv
 import requests
 from datetime import datetime
-
-load_dotenv()
 
 
 class WeatherClient:
@@ -38,8 +35,6 @@ class WeatherClient:
             )
 
     def _parse_weather_data(self, data: dict) -> dict:
-        print(data)
-        print("\n\n")
         timestamp = data.get("dt")
         if timestamp is None:
             raise ValueError("Missing timestamp in API response")
