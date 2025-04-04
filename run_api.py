@@ -57,10 +57,13 @@ def save_weather(city: str = Query(..., min_length=2, description="Name of the c
         return {"message": f"Weather data for '{city}' saved successfully!"}
     except requests.exceptions.HTTPError as http_err:
         if http_err.response.status_code == 404:
-            raise HTTPException(status_code=404, detail=f"City '{city}' not found.")
-        raise HTTPException(status_code=http_err.response.status_code, detail="Failed to access the weather API.")
+            raise HTTPException(
+                status_code=404, detail=f"City '{city}' not found.")
+        raise HTTPException(status_code=http_err.response.status_code,
+                            detail="Failed to access the weather API.")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 if __name__ == "__main__":
