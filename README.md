@@ -27,10 +27,15 @@ git clone https://github.com/seu-usuario/gntech-test-carlos.git
 cd gntech-test-carlos
 ```
 Crie um arquivo .env com as seguintes variáveis(está em .env.exemple tambem):
+
 POSTGRES_USER=carlos
+
 POSTGRES_PASSWORD=carlos123
+
 POSTGRES_DB=weather_db
+
 OPENWEATHER_API_KEY=your_api_key_here
+
                         #//user:password@gntech_postgres:port/my_db
 DATABASE_URL=postgresql://carlos:carlos123@gntech_postgres:5432/weather_db
 
