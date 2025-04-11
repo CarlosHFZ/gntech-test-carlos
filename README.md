@@ -17,6 +17,11 @@ A RESTful API built with FastAPI, PostgreSQL, and Docker to fetch and store weat
 
 ## 🚀 How to Run the Project Locally
 
+⚠️ Windows users: Make sure the `wait-for-it.sh` file uses Unix-style (LF) line endings.
+If edited in Windows, convert the file using VS Code (bottom-right corner -> select "LF") or a tool like `dos2unix`.
+
+This ensures compatibility when running inside the Docker container (Linux environment).
+
 ### 1. Clone the repository
 
 ```bash
