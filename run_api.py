@@ -29,6 +29,7 @@ def root():
 
 @app.get("/weather", response_model=list[WeatherDataOut])
 def read_weather():
+    init_db()
     db = SessionLocal()
     try:
         result = db.execute(text("SELECT * FROM weather_data"))
@@ -50,6 +51,7 @@ def read_weather():
 
 @app.post("/weather")
 def save_weather(city: str = Query(..., min_length=2, description="Name of the city to fetch weather data for")):
+    init_db()
     client = WeatherClient()
     try:
         weather_data = client.get_weather(city)

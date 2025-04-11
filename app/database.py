@@ -28,6 +28,5 @@ class WeatherData(Base):
 def init_db():
     try:
         Base.metadata.create_all(bind=engine)
-        print("Database created")
     except Exception as e:
         print(f"Error creating table: {e}")
