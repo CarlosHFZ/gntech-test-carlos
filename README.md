@@ -1,5 +1,5 @@
 
-# 🌤️ GNTech Weather Data API
+# 🌤️ Weather Data API
 
 A RESTful API built with FastAPI, PostgreSQL, and Docker to fetch and store weather data from the OpenWeather API.
 
