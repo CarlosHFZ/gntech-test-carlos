@@ -6,11 +6,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from app.schemas import WeatherDataOut
 from app.weather_api import WeatherClient
+from contextlib import asynccontextmanager
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
 
-init_db()
+app = FastAPI(lifespan=lifespan)
 
 # Habilitar CORS (Cross-Origin Resource Sharing)
 app.add_middleware(
@@ -29,7 +33,6 @@ def root():
 
 @app.get("/weather", response_model=list[WeatherDataOut])
 def read_weather():
-    init_db()
     db = SessionLocal()
     try:
         result = db.execute(text("SELECT * FROM weather_data"))
@@ -51,7 +54,6 @@ def read_weather():
 
 @app.post("/weather")
 def save_weather(city: str = Query(..., min_length=2, description="Name of the city to fetch weather data for")):
-    init_db()
     client = WeatherClient()
     try:
         weather_data = client.get_weather(city)

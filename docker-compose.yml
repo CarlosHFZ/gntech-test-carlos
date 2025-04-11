@@ -14,9 +14,9 @@ services:
   api:
     build: .
     container_name: gntech-api
-    command: ["python", "-m", "uvicorn", "run_api:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["/wait-for-it.sh", "db:5432", "--", "python", "-m", "uvicorn", "run_api:app", "--host", "0.0.0.0", "--port", "8000"]
     volumes:
-      - .:/code
+      - .:/app
     ports:
       - "8000:8000"
     depends_on:
